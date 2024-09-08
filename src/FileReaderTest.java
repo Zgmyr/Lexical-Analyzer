@@ -12,6 +12,10 @@ public class FileReaderTest {
 
             // reads through each character one at a time
             while ((i = in_fp.read()) != -1) {
+                if (Character.isLetter(i))
+                    System.out.println("is a letter");
+                else
+                    System.out.println("is a digit");
                 System.out.println((char)i);
                 lexeme.append((char) i);
             }
