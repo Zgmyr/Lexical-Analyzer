@@ -15,7 +15,6 @@ public class Front {
     static StringBuilder lexeme = new StringBuilder(); // imposed 100 char limit
     static char nextChar;
     // static int lexLen; // (unnecessary: we use StringBuilder which has a length() method)
-    static int token;
     static int nextToken;
     static FileReader in_fp;
 
@@ -40,6 +39,7 @@ public class Front {
     static final int DIV_OP = 24;
     static final int LEFT_PAREN = 25;
     static final int RIGHT_PAREN = 26;
+    static final int SEMICOLON = 27; /* new token */
 
 
     /* main driver */
@@ -98,6 +98,18 @@ public class Front {
                 nextToken = DIV_OP;
                 break;
 
+            /* new case - not in ORIGINAL Front.C */
+            case '=':
+                addChar();
+                nextToken = ASSIGN_OP;
+                break;
+
+            /* new case - not in ORIGINAL Front.C */
+            case ';':
+                addChar();
+                nextToken = SEMICOLON;
+                break;
+
             default:
                 addChar();
                 nextToken = EOF;
@@ -111,8 +123,8 @@ public class Front {
     public static void addChar() {
         // ORIGINAL: if (lexLen <= 99) {
         if (lexeme.length() <= 99) {
-            // ORIGINAL: lexeme[lexLen++] = nextChar;
-            // ORIGINAL: lexeme[lexLen] = 0;
+            /* ORIGINAL: lexeme[lexLen++] = nextChar;
+            ORIGINAL: lexeme[lexLen] = 0; */
             lexeme.append(nextChar);
         }
         else
