@@ -1,7 +1,7 @@
 /*  Zachary Gmyr
- *   Project #1 for CS4250
- *   Front.java - a lexical analyzer system for simple arithmetic expression, translated from
- *       a given example program 'front.c'
+ *  Project #1 for CS4250
+ *  Front.java - a lexical analyzer system for simple arithmetic expression, translated from
+ *      a given example program 'front.c'
  */
 
 import java.io.FileReader;
@@ -14,6 +14,9 @@ public class Front {
     static int charClass;
     static StringBuilder lexeme = new StringBuilder(); // holds each lexeme with 100 char limit
     static char nextChar;
+    // static int lexLen; // (unnecessary: we use StringBuilder which has a length() method)
+    static int token;
+    static int nextToken;
     static FileReader in_fp;
 
 
@@ -69,7 +72,19 @@ public class Front {
         System.out.println("END OF PROGRAM"); // DEBUG
     }
 
-    /* a function to get the next character of input and determine its character class */
+    /* addChar - a function to add nextChar to lexeme */
+    public static void addChar() {
+        // ORIGINAL: if (lexLen <= 99) {
+        if (lexeme.length() <= 99) {
+            // ORIGINAL: lexeme[lexLen++] = nextChar;
+            // ORIGINAL: lexeme[lexLen] = 0;
+            lexeme.append(nextChar);
+        }
+        else
+            System.out.println("Error - lexeme is too long");
+    }
+
+    /* getChar - a function to get the next character of input and determine its character class */
     public static void getChar() {
         try {
             int readChar; // temporarily holds FileReader value to determine charClass
@@ -96,6 +111,19 @@ public class Front {
 
     }
 
+    /* getNonBlank - a function to call getChar until it returns a non-whitespace character */
+    public static void getNonBlank() {
+        // ORIGINAL: while (isspace(nextChar))
+        while (Character.isWhitespace(nextChar))
+            getChar();
+    }
 
+    /* lex - a simple lexical analyzer for arithmetic expressions */
+    /*public static int lex() {
+        // ORIGINAL: lexLen = 0;
+        lexeme.setLength(0);
+        getNonBlank();
+        // switch (charClass) ...
+    }*/
 
 }
